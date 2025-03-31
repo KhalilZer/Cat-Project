@@ -6,6 +6,8 @@
       
       <!-- SearchBar component -->
       <SearchBar @search="fetchCats" :query="lastQuery" />
+        <!-- Show New or Lost Cats component -->
+      
       
       <div v-if="loading" class="text-blue-600 text-xl mt-4">
         <span class="spinner"></span> Loading cats...
@@ -15,7 +17,7 @@
       </div>
       
       <div v-if="cats.length > 0" class="mt-6">
-        <h2 class="text-2xl text-gray-700 mb-4">Results:</h2>
+        <h2 class="text-2xl text-gray-700 mb-4 ">Results:</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div v-for="cat in cats" :key="cat.id" class="bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-300 hover:scale-105">
             <img :src="cat.imageUrl" :alt="'Cat ' + cat.id" class="w-full h-40 object-cover" />
@@ -46,8 +48,19 @@
         No results found. Try another tag!
       </div>
 
-      <!-- Show New or Lost Cats component -->
-      <NewOrLostCats :newCats="newCats" :removedCats="removedCats" />
+      <div v-if="newCats !== null && removedCats !== null">
+        <div v-if="newCats.length > 0 || removedCats.length > 0">
+          <NewOrLostCats :newCats="newCats" :removedCats="removedCats" />
+        </div>
+          <p v-else class="bg-white shadow-md rounded-lg p-4 text-gray-500 text-lg font-bold text-center border border-gray-300"
+          >
+            There are no new or removed cats.
+          </p>     
+         </div>
+
+
+    
+
     </div>
   </div>
 </template>
@@ -75,8 +88,8 @@ const route = useRoute();
 let lastQuery = ref(route.query.q || "");
 const catsPerPage = 4; // Number of items per page
 
-const newCats = ref([]);
-const removedCats = ref([]);
+const newCats = ref(null);
+const removedCats = ref(null);
 
 const fetchCats = async (query, page = 1) => {
   loading.value = true;
@@ -98,12 +111,15 @@ const fetchCats = async (query, page = 1) => {
       tags: cat.tags
     }));
 
-    // Update new and removed cats
-    newCats.value = newCatsData;
-    removedCats.value = removedCatsData;
-
+   
     // Update total results for pagination
     totalResults.value = totalLength;
+
+
+      // Update new and removed cats
+      newCats.value = newCatsData;
+      removedCats.value = removedCatsData;
+
 
     // Check if there is a next page
     hasNextPage.value = (page * catsPerPage) < totalLength;
@@ -111,11 +127,13 @@ const fetchCats = async (query, page = 1) => {
     currentPage.value = page;
 
     // Show a notification with the server message
-    if(page === 1) {
+    /* if(page === 1) {
       if (message) {
         toast.success(message); // Show success message if the server returns one
+       
+
       }
-    }
+    } */
   } catch (error) {
     errorMessage.value = "Error loading cats.";
     toast.error('An error occurred during the search.');
