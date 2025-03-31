@@ -1,112 +1,218 @@
-# 📱 React Native & PHP Project with WhatsApp Verification Code in Login
+# 📱 Fullstack Node.js (Sequelize MySQL) & Vue.js (Tailwind CSS) Project
 
-This is a full-stack project using **React Native** for the frontend and **PHP** for the backend.
+This is a full-stack project using **Node.js** with **Sequelize** for the backend and **Vue.js** with **Tailwind CSS** for the frontend.
 
-Welcome to your **React Native** project! This project is bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+The database used is **MySQL**, and the database name is **cat_db**.
 
 ---
 
 ## 🚀 Getting Started
 
 ### 📌 Prerequisites
-Before proceeding, make sure you have set up your environment by following the [React Native Setup Guide](https://reactnative.dev/docs/environment-setup).
-
-### 1️⃣ Start Metro
-Metro is the JavaScript build tool for React Native. Start it by running:
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-### 2️⃣ Build and Run the App
-Open a new terminal and run one of the following commands:
-
-#### Android 📱
-```sh
-npm run android  # OR  yarn android
-```
-
-#### iOS 🍏 (Mac only)
-First, install CocoaPods dependencies (only on first setup or after native updates):
-```sh
-bundle install
-bundle exec pod install
-```
-Then run:
-```sh
-npm run ios  # OR  yarn ios
-```
-
-### 3️⃣ Start the Backend & Database Setup 🗄️
-To start the backend server and set up the database:
-1. Navigate to the backend folder:
-   ```sh
-   cd backend
-   ```
-2. Install WhatsApp API SDK for Verification 📩:
-   ```sh
-   composer require whapi-cloud/whatsapp-api-sdk-php
-   ```
-   This will allow you to send verification codes via WhatsApp.
-3. Start the MySQL server:
-   ```sh
-   mysql -u root -p
-   ```
-4. Start the PHP server:
-   ```sh
-   php -S localhost:8000 -t public
-   ```
-4. To create the database and tables, navigate to:
-   ```sh
-   cd backend/config
-   ```
-   and run:
-   ```sh
-   php setup_db.php
-   ```
-5. To load initial data, re-run:
-   ```sh
-   php backend/config
-   ```
-    and run:
-   ```sh
-   php LoadData.php
-   ```
-6. Start the PHP server:
-   ```sh
-   php -S localhost:8000 -t public
-   ```
-
-### 4️⃣ Modify Your App 🎨
-Edit `App.tsx` in your preferred editor. Thanks to **Fast Refresh**, changes will be reflected instantly. To manually reload:
-- **Android**: Press <kbd>R</kbd> twice or open the **Dev Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> / <kbd>Cmd ⌘</kbd> + <kbd>M</kbd>).
-- **iOS**: Press <kbd>R</kbd> in the iOS Simulator.
+Before starting, make sure your environment is set up with **Node.js**, **Vue.js**, **MySQL**, and **Docker** installed.
 
 ---
 
-## 🎯 Next Steps
-- Learn more about [React Native](https://reactnative.dev/docs/getting-started).
-- If you want to integrate this project into an existing app, check out the [Integration Guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you run into issues, check the [Troubleshooting Guide](https://reactnative.dev/docs/troubleshooting).
+## 💻 Backend - Node.js & Sequelize with MySQL
+
+### 1️⃣ Start the Backend with Docker
+The backend is dockerized, and you can start it by running the following script in the **backend** directory:
+
+```sh
+./docker-build.sh
+```
+
+This script starts the Node.js backend with Sequelize and connects to the MySQL database called **cat_db**.
+
+If Docker does not work properly, try running the following commands manually:
+```sh
+npm install
+npm run dev
+```
+
+### 2️⃣ API Routes
+
+Here are the available routes to interact with the backend API:
+
+#### **Get all tags:**
+```http
+GET http://localhost:3000/api/v1/tags
+```
+
+#### **Get tags with filters for pagination:**
+```http
+GET http://localhost:3000/api/v1/cats/filter?tag=orange&omit=0&total=10
+```
+This route adds a new entry to the database with pagination filters.
+
+#### **Get tags matching a search string:**
+```http
+GET http://localhost:3000/api/v1/cats/match?string=orange
+```
+
+#### **Get popular requests:**
+```http
+GET http://localhost:3000/api/v1/popular
+```
+
+#### **Get popular tags:**
+```http
+GET http://localhost:3000/api/v1/popular-tags
+```
+
+---
+
+## 🎨 Frontend - Vue.js with Tailwind CSS
+
+### 1️⃣ Start the Frontend with Docker
+
+The frontend is also dockerized, and you can start it by running the following script in the **frontend** directory:
+
+```sh
+./script.sh
+```
+
+This script starts the frontend application using **Vue.js** and **Tailwind CSS**.
+
+If Docker does not work properly, try running the following commands manually:
+```sh
+npm install
+npm run dev
+```
+
+### 2️⃣ Customization & Development
+
+You can modify the Vue.js components in the `src/` directory to adjust the application according to your needs. Styling is managed with **Tailwind CSS**.
 
 ---
 
 ## 🛠 Useful Commands
-| Command             | Description                           |
-|--------------------|----------------------------------|
-| `npm start` / `yarn start` | Start Metro (JS bundler) |
-| `npm run android` / `yarn android` | Run app on Android |
-| `npm run ios` / `yarn ios` | Run app on iOS (Mac only) |
-| `npm run lint` / `yarn lint` | Lint your code |
-| `npm run test` / `yarn test` | Run tests |
+
+| Command                           | Description                              |
+|-------------------------------------|------------------------------------------|
+| `./docker-build.sh`                 | Start the backend with Docker          |
+| `./script.sh`                       | Start the frontend with Docker         |
+| `npm run serve` / `yarn serve`      | Start the Vue.js frontend locally     |
+| `npx sequelize-cli db:migrate`      | Run Sequelize migrations              |
 
 ---
 
 ## 📝 License
-This project is licensed under the [MIT License](LICENSE).
+
+This project is licensed under the [MIT](LICENSE) license.
 
 Happy coding! 🚀
+
+
+
+
+
+
+
+# 📱 Projeto Fullstack Node.js (Sequelize MySQL) & Vue.js (Tailwind CSS)
+
+Este é um projeto full-stack usando **Node.js** com **Sequelize** para o backend e **Vue.js** com **Tailwind CSS** para o frontend.
+
+O banco de dados utilizado é **MySQL**, e o nome do banco de dados é **cat_db**.
+
+---
+
+## 🚀 Iniciando
+
+### 📌 Pré-requisitos
+Antes de começar, certifique-se de que seu ambiente está configurado com **Node.js**, **Vue.js**, **MySQL** e **Docker** instalados.
+
+---
+
+## 💻 Backend - Node.js & Sequelize com MySQL
+
+### 1️⃣ Iniciar o Backend com Docker
+O backend está dockerizado e pode ser iniciado executando o seguinte script no diretório **backend**:
+
+```sh
+./docker-build.sh
+```
+
+Este script inicia o backend Node.js com Sequelize e conecta ao banco de dados MySQL chamado **cat_db**.
+
+Se o Docker não funcionar corretamente, tente rodar os seguintes comandos manualmente:
+```sh
+npm install
+npm run dev
+```
+
+### 2️⃣ Rotas da API
+
+Aqui estão as rotas disponíveis para interagir com a API do backend:
+
+#### **Obter todas as tags:**
+```http
+GET http://localhost:3000/api/v1/tags
+```
+
+#### **Obter tags com filtros para paginação:**
+```http
+GET http://localhost:3000/api/v1/cats/filter?tag=orange&omit=0&total=10
+```
+Esta rota adiciona uma nova entrada ao banco de dados com filtros de paginação.
+
+#### **Obter tags que correspondem a uma string de pesquisa:**
+```http
+GET http://localhost:3000/api/v1/cats/match?string=orange
+```
+
+#### **Obter requisições populares:**
+```http
+GET http://localhost:3000/api/v1/popular
+```
+
+#### **Obter tags populares:**
+```http
+GET http://localhost:3000/api/v1/popular-tags
+```
+
+---
+
+## 🎨 Frontend - Vue.js com Tailwind CSS
+
+### 1️⃣ Iniciar o Frontend com Docker
+
+O frontend também está dockerizado e pode ser iniciado executando o seguinte script no diretório **frontend**:
+
+```sh
+./script.sh
+```
+
+Este script inicia a aplicação frontend usando **Vue.js** e **Tailwind CSS**.
+
+Se o Docker não funcionar corretamente, tente rodar os seguintes comandos manualmente:
+```sh
+npm install
+npm run dev
+```
+
+### 2️⃣ Personalização & Desenvolvimento
+
+Você pode modificar os componentes Vue.js no diretório `src/` para ajustar a aplicação conforme suas necessidades. O estilo é gerenciado com **Tailwind CSS**.
+
+---
+
+## 🛠 Comandos Úteis
+
+| Comando                           | Descrição                              |
+|-------------------------------------|------------------------------------------|
+| `./docker-build.sh`                 | Iniciar o backend com Docker          |
+| `./script.sh`                       | Iniciar o frontend com Docker         |
+| `npm run serve` / `yarn serve`      | Iniciar o frontend Vue.js localmente  |
+| `npx sequelize-cli db:migrate`      | Executar migrações do Sequelize      |
+
+---
+
+## 📝 Licença
+
+Este projeto está licenciado sob a [MIT](LICENSE).
+
+Boa programação! 🚀
+
+---
 
